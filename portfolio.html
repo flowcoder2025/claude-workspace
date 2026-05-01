@@ -14,10 +14,13 @@
     ═══════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
+    :root,
+    [data-theme="dark"] {
       --bg:           #080808;
       --bg-card:      #111111;
       --bg-raise:     #181818;
+      --nav-bg:       rgba(8, 8, 8, 0.8);
+      --noise-opacity: 0.025;
       --accent:       #00A896;
       --accent-dim:   rgba(0, 168, 150, 0.12);
       --accent-line:  rgba(0, 168, 150, 0.35);
@@ -28,6 +31,24 @@
       --display:      'Cormorant Garamond', Georgia, serif;
       --body:         'DM Sans', system-ui, sans-serif;
     }
+
+    [data-theme="light"] {
+      --bg:           #FAF7F2;
+      --bg-card:      #FFFFFF;
+      --bg-raise:     #F0EDE7;
+      --nav-bg:       rgba(250, 247, 242, 0.85);
+      --noise-opacity: 0.04;
+      --accent:       #00897B;
+      --accent-dim:   rgba(0, 137, 123, 0.10);
+      --accent-line:  rgba(0, 137, 123, 0.35);
+      --text:         #1A1A1A;
+      --muted:        rgba(26, 26, 26, 0.55);
+      --dim:          rgba(26, 26, 26, 0.25);
+      --border:       rgba(26, 26, 26, 0.10);
+    }
+
+    html { transition: background 0.3s ease, color 0.3s ease; }
+    body { transition: background 0.3s ease, color 0.3s ease; }
 
     html { scroll-behavior: smooth; }
 
@@ -47,7 +68,7 @@
       inset: 0;
       pointer-events: none;
       z-index: 999;
-      opacity: 0.025;
+      opacity: var(--noise-opacity);
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 300px 300px;
     }
@@ -67,7 +88,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(8, 8, 8, 0.8);
+      background: var(--nav-bg);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--border);
@@ -99,6 +120,32 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--accent); }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1;
+      padding: 0;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: rotate(15deg);
+    }
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: inline; }
+    [data-theme="light"] .theme-toggle .icon-sun  { display: inline; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: none; }
 
     .nav-cta {
       border: 1px solid var(--accent-line) !important;
@@ -716,6 +763,12 @@
       <li><a href="#projects">프로젝트</a></li>
       <li><a href="#skills">스킬</a></li>
       <li><a href="#contact" class="nav-cta">연락하기</a></li>
+      <li>
+        <button type="button" class="theme-toggle" aria-label="테마 전환" title="테마 전환">
+          <span class="icon-moon" aria-hidden="true">☾</span>
+          <span class="icon-sun"  aria-hidden="true">☀</span>
+        </button>
+      </li>
     </ul>
   </nav>
 
@@ -1057,6 +1110,24 @@
       });
     }, { threshold: 0.45 });
     sections.forEach(s => secObs.observe(s));
+
+    /* ─── theme toggle ─── */
+    (function () {
+      const root = document.documentElement;
+      const stored = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const initial = stored || (prefersLight ? 'light' : 'dark');
+      root.setAttribute('data-theme', initial);
+
+      const btn = document.querySelector('.theme-toggle');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          root.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        });
+      }
+    })();
   </script>
 </body>
 </html>
