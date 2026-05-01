@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김수민 — Marketing Specialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════
+       RESET & TOKENS
+    ═══════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #080808;
+      --bg-card:      #111111;
+      --bg-raise:     #181818;
+      --accent:       #00A896;
+      --accent-dim:   rgba(0, 168, 150, 0.12);
+      --accent-line:  rgba(0, 168, 150, 0.35);
+      --text:         #EDE8E0;
+      --muted:        rgba(237, 232, 224, 0.48);
+      --dim:          rgba(237, 232, 224, 0.18);
+      --border:       rgba(237, 232, 224, 0.07);
+      --display:      'Cormorant Garamond', Georgia, serif;
+      --body:         'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* subtle noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+    /* ═══════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 22px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8, 8, 8, 0.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      border: 1px solid var(--accent-line) !important;
+      color: var(--accent) !important;
+      padding: 8px 22px;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s !important;
+    }
+    .nav-cta:hover {
+      background: var(--accent) !important;
+      color: var(--bg) !important;
+    }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      padding: 130px 52px 80px;
+      gap: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* radial glow */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -10%;
+      width: 800px; height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,168,150,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    /* bottom line */
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 100px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .hero-left {
+      animation: fadeUp 0.85s ease both;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .eyebrow-line {
+      width: 36px; height: 1px;
+      background: var(--accent);
+    }
+    .eyebrow span {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    .hero-name {
+      font-family: var(--display);
+      font-size: clamp(56px, 7.5vw, 96px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      margin-bottom: 6px;
+    }
+    .hero-name-en {
+      font-family: var(--display);
+      font-size: clamp(18px, 2.2vw, 28px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      display: block;
+      margin-top: 6px;
+    }
+
+    .hero-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 28px 0 20px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 400;
+    }
+    .hero-title::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 400px;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 44px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      border-radius: 2px;
+      transition: all 0.22s ease;
+    }
+    .btn-fill {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-fill:hover { background: #00BCA9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,168,150,0.25); }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-outline:hover { border-color: var(--accent-line); color: var(--accent); }
+
+    /* ─── STAT CARDS ─── */
+    .hero-right { animation: fadeUp 0.85s 0.14s ease both; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px; height: 0%;
+      background: var(--accent);
+      transition: height 0.4s ease;
+    }
+    .stat-card:hover { background: var(--bg-raise); border-color: var(--accent-line); }
+    .stat-card:hover::after { height: 100%; }
+
+    .stat-num {
+      font-family: var(--display);
+      font-size: 50px;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      display: block;
+    }
+    .stat-label {
+      display: block;
+      font-size: 12px;
+      color: var(--text);
+      font-weight: 400;
+      margin-top: 10px;
+      letter-spacing: 0.02em;
+    }
+    .stat-note {
+      display: block;
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 3px;
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION COMMONS
+    ═══════════════════════════════════════ */
+    section { padding: 104px 52px; }
+
+    .sec-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 64px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sec-tag {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .sec-title {
+      font-family: var(--display);
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+    }
+    .sec-count {
+      font-family: var(--display);
+      font-size: 90px;
+      font-weight: 300;
+      color: var(--dim);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      user-select: none;
+    }
+
+    /* ═══════════════════════════════════════
+       CAREER
+    ═══════════════════════════════════════ */
+    #career { background: var(--bg); }
+
+    .career-item {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 44px;
+      padding: 44px 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease, border-color 0.3s;
+    }
+    .career-item:hover { border-color: var(--accent-line); }
+    .career-item.visible { opacity: 1; transform: translateY(0); }
+
+    .ci-num {
+      font-family: var(--display);
+      font-size: 60px;
+      font-weight: 300;
+      color: var(--dim);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      padding-top: 2px;
+      transition: color 0.3s;
+    }
+    .career-item:hover .ci-num { color: var(--accent); }
+
+    .ci-period {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .ci-company {
+      font-family: var(--display);
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+    .ci-role {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+    .ci-ctx {
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 0.04em;
+      margin-bottom: 22px;
+    }
+    .ci-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ci-list li {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.65;
+      padding-left: 22px;
+      position: relative;
+    }
+    .ci-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 11px;
+      top: 3px;
+    }
+    .ci-list strong { color: var(--text); font-weight: 500; }
+
+    /* ═══════════════════════════════════════
+       PROJECTS
+    ═══════════════════════════════════════ */
+    #projects { background: var(--bg-card); }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .proj-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 40px 32px 72px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, background 0.3s, transform 0.35s;
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    .proj-card.visible { opacity: 1; transform: translateY(0); }
+    .proj-card:nth-child(2) { transition-delay: 0.1s; }
+    .proj-card:nth-child(3) { transition-delay: 0.2s; }
+    .proj-card:hover {
+      border-color: var(--accent-line);
+      background: var(--bg-raise);
+      transform: translateY(-5px) !important;
+    }
+
+    .proj-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-line);
+      border-radius: 2px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 22px;
+    }
+
+    .proj-title {
+      font-family: var(--display);
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .proj-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+    .proj-result {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .proj-result::before {
+      content: '';
+      width: 22px; height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .proj-year {
+      position: absolute;
+      bottom: 20px; right: 24px;
+      font-family: var(--display);
+      font-size: 64px;
+      font-weight: 300;
+      color: var(--dim);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      transition: color 0.3s;
+    }
+    .proj-card:hover .proj-year { color: rgba(0,168,150,0.08); }
+
+    /* ═══════════════════════════════════════
+       SKILLS
+    ═══════════════════════════════════════ */
+    #skills { background: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .skill-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 28px 28px 32px;
+      transition: border-color 0.3s;
+    }
+    .skill-group:hover { border-color: var(--accent-line); }
+
+    .skill-cat {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .tag {
+      padding: 5px 11px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .tag:hover {
+      border-color: var(--accent-line);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════ */
+    #contact {
+      background: var(--bg-card);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute;
+      bottom: -30%; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,168,150,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .contact-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-hl {
+      font-family: var(--display);
+      font-size: clamp(48px, 7vw, 80px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .contact-hl em { font-style: italic; color: var(--accent); }
+
+    .contact-sub {
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: 48px;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent-line);
+      padding-bottom: 4px;
+      letter-spacing: 0.02em;
+      margin-bottom: 52px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .contact-email:hover { color: var(--accent); border-color: var(--accent); }
+
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      font-weight: 300;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--accent); }
+    .c-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    /* icon placeholders */
+    .ico {
+      width: 16px; height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      opacity: 0.6;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer {
+      padding: 28px 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--dim);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1100px) {
+      nav { padding: 20px 36px; }
+      section { padding: 80px 36px; }
+      #hero { padding: 120px 36px 72px; gap: 48px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 860px) {
+      #hero { grid-template-columns: 1fr; padding-top: 100px; }
+      .proj-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 64px 24px; }
+      #hero { padding: 88px 24px 56px; }
+      .sec-count { display: none; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat-num { font-size: 38px; }
+      .stat-card { padding: 22px 18px; }
+      .career-item { grid-template-columns: 1fr; gap: 12px; }
+      .ci-num { font-size: 40px; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────── -->
+  <nav>
+    <a href="#hero" class="nav-logo">수민<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#career">경력</a></li>
+      <li><a href="#projects">프로젝트</a></li>
+      <li><a href="#skills">스킬</a></li>
+      <li><a href="#contact" class="nav-cta">연락하기</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>Marketing Specialist · Seoul</span>
+      </div>
+
+      <h1 class="hero-name">
+        김수민
+        <span class="hero-name-en">Kim Soomin</span>
+      </h1>
+
+      <p class="hero-title">Performance × Content × Growth</p>
+
+      <p class="hero-desc">
+        데이터로 증명하는 마케터. B2B SaaS와 D2C 브랜드에서
+        퍼포먼스 마케팅부터 콘텐츠 전략까지,
+        숫자로 말하는 그로스를 만들어갑니다.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-fill">연락하기 &nbsp;→</a>
+        <a href="#career" class="btn btn-outline">경력 보기</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-num" id="s-cpl">0%</span>
+          <span class="stat-label">CPL 절감</span>
+          <span class="stat-note">6개월 퍼포먼스 최적화</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="s-traffic">0×</span>
+          <span class="stat-label">오가닉 트래픽 증가</span>
+          <span class="stat-note">SEO 전략 수립 결과</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="s-sub">0</span>
+          <span class="stat-label">뉴스레터 구독자</span>
+          <span class="stat-note">콘텐츠 마케팅 누적</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="s-yr">0년+</span>
+          <span class="stat-label">마케팅 경력</span>
+          <span class="stat-note">B2B SaaS · D2C 뷰티</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CAREER ───────────────────────────── -->
+  <section id="career">
+    <div class="sec-head">
+      <div>
+        <p class="sec-tag">Work Experience</p>
+        <h2 class="sec-title">경력사항</h2>
+      </div>
+      <span class="sec-count">03</span>
+    </div>
+
+    <!-- 01 -->
+    <div class="career-item">
+      <span class="ci-num">01</span>
+      <div>
+        <p class="ci-period">2022.03 — 현재</p>
+        <h3 class="ci-company">주식회사 테크노바</h3>
+        <p class="ci-role">마케팅 매니저</p>
+        <p class="ci-ctx">B2B SaaS 스타트업 · 시리즈 A · 임직원 50명</p>
+        <ul class="ci-list">
+          <li>퍼포먼스 마케팅 총괄 — Google / Meta / Naver 광고 <strong>월 5천만원</strong> 규모 운영</li>
+          <li>유입 CPL <strong>38% 절감</strong> (6개월), 유료 전환율 2.1% → <strong>3.4%</strong> 개선</li>
+          <li>SEO 전략 수립 — 핵심 키워드 27개 10위권 진입, 오가닉 트래픽 <strong>2.3배</strong> 증가</li>
+          <li>콘텐츠 마케팅 — 블로그 주 3회 운영, 뉴스레터 구독자 <strong>8,000명</strong> 확보</li>
+          <li>HubSpot 기반 마케팅 자동화 워크플로우 <strong>12종</strong> 구축</li>
+          <li>GA4 · Amplitude · Looker Studio 대시보드 구축 및 주간 리포팅</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="career-item">
+      <span class="ci-num">02</span>
+      <div>
+        <p class="ci-period">2019.03 — 2022.02</p>
+        <h3 class="ci-company">주식회사 리브랜드</h3>
+        <p class="ci-role">마케팅 어시스턴트</p>
+        <p class="ci-ctx">DTC 뷰티 브랜드 · 연매출 50억 규모</p>
+        <ul class="ci-list">
+          <li>인스타그램 브랜드 계정 운영 — 팔로워 <strong>2.5만 → 12만</strong> 성장 (3년)</li>
+          <li>인플루언서 마케팅 캠페인 14건 진행, 평균 <strong>ROAS 4.2배</strong></li>
+          <li>신제품 런칭 캠페인 <strong>6건</strong> 기획·집행 (시즌 한정 라인 포함)</li>
+          <li>프리랜서 디자이너 3명 오케스트레이션 및 일정 관리</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="career-item">
+      <span class="ci-num">03</span>
+      <div>
+        <p class="ci-period">2015.03 — 2019.02</p>
+        <h3 class="ci-company">한양대학교</h3>
+        <p class="ci-role">경영학과 · 학사</p>
+        <p class="ci-ctx">학점 3.8 / 4.5 · 마케팅 동아리 ABLE 38기 부회장</p>
+        <ul class="ci-list">
+          <li>주요 수강: 마케팅 조사, 소비자 행동론, 디지털 마케팅, 브랜드 관리</li>
+          <li>교내 마케팅 동아리 ABLE <strong>부회장</strong> 역임 (2017–2018)</li>
+          <li>Google Ads Certified (Search·Display), GAIQ, HubSpot Inbound Certified</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── PROJECTS ──────────────────────────── -->
+  <section id="projects">
+    <div class="sec-head">
+      <div>
+        <p class="sec-tag">Featured Projects</p>
+        <h2 class="sec-title">주요 프로젝트</h2>
+      </div>
+      <span class="sec-count">03</span>
+    </div>
+
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <span class="proj-badge">AI · Automation</span>
+        <h3 class="proj-title">AI 기반 마케팅<br>생산성 개선</h3>
+        <p class="proj-desc">
+          GPT-4 API를 활용한 블로그 초안 생성 파이프라인 설계.
+          Python · OpenAI API · Notion API 스택으로 워크플로우 구축.
+          사내 세미나 발표로 조직 전파.
+        </p>
+        <p class="proj-result">주간 콘텐츠 산출량 3배 증가</p>
+        <span class="proj-year">2024</span>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-badge">Ops · Workflow</span>
+        <h3 class="proj-title">캠페인 관리<br>자동화 시스템</h3>
+        <p class="proj-desc">
+          Notion + Airtable + Zapier 조합으로 캠페인 라이프사이클 전체 자동화.
+          수작업 리포팅 흐름을 워크플로우 엔진으로 완전 대체.
+        </p>
+        <p class="proj-result">수동 리포팅 8h → 2.5h/주 단축</p>
+        <span class="proj-year">2023</span>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-badge">Analytics · Data</span>
+        <h3 class="proj-title">풀퍼널 어트리뷰션<br>모델 구축</h3>
+        <p class="proj-desc">
+          GA4 + Amplitude 데이터를 BigQuery에 적재 후 통합 분석.
+          유료 채널별 기여도 재분석으로 예산 재분배 근거 확보.
+        </p>
+        <p class="proj-result">예산 재분배 후 ROAS 1.7배 상승</p>
+        <span class="proj-year">2023</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── SKILLS ────────────────────────────── -->
+  <section id="skills">
+    <div class="sec-head">
+      <div>
+        <p class="sec-tag">Expertise</p>
+        <h2 class="sec-title">보유 스킬</h2>
+      </div>
+      <span class="sec-count">06</span>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <p class="skill-cat">퍼포먼스 마케팅</p>
+        <div class="tags">
+          <span class="tag">Google Ads</span>
+          <span class="tag">Meta Ads</span>
+          <span class="tag">Naver Search</span>
+          <span class="tag">Kakao Moment</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <p class="skill-cat">데이터 분석</p>
+        <div class="tags">
+          <span class="tag">GA4</span>
+          <span class="tag">Amplitude</span>
+          <span class="tag">Hotjar</span>
+          <span class="tag">Looker Studio</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">BigQuery</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <p class="skill-cat">마케팅 오토메이션</p>
+        <div class="tags">
+          <span class="tag">HubSpot</span>
+          <span class="tag">Mailchimp</span>
+          <span class="tag">Zapier</span>
+          <span class="tag">Airtable</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <p class="skill-cat">콘텐츠 · SEO</p>
+        <div class="tags">
+          <span class="tag">카피라이팅</span>
+          <span class="tag">SEO 최적화</span>
+          <span class="tag">Ahrefs</span>
+          <span class="tag">Notion</span>
+          <span class="tag">Figma</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <p class="skill-cat">기술 역량</p>
+        <div class="tags">
+          <span class="tag">Excel 고급</span>
+          <span class="tag">SQL 기초</span>
+          <span class="tag">Python (pandas)</span>
+          <span class="tag">OpenAI API</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <p class="skill-cat">언어</p>
+        <div class="tags">
+          <span class="tag">한국어 (원어민)</span>
+          <span class="tag">영어 비즈니스</span>
+          <span class="tag">TOEIC 925</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ───────────────────────────── -->
+  <section id="contact">
+    <div class="contact-inner">
+      <h2 class="contact-hl">
+        함께<br><em>일해봐요.</em>
+      </h2>
+      <p class="contact-sub">
+        B2B SaaS 그로스, PLG, AI 기반 콘텐츠 자동화에 관심이 많습니다.<br>
+        새로운 기회나 협업 제안은 언제든 환영합니다.
+      </p>
+      <a href="mailto:soomin.kim@example.com" class="contact-email">
+        soomin.kim@example.com
+      </a>
+      <div class="contact-row">
+        <a href="tel:010-1234-5678" class="contact-link">
+          <span class="ico">📱</span>010-1234-5678
+        </a>
+        <div class="c-dot"></div>
+        <a href="https://linkedin.com/in/soomin-kim" class="contact-link" target="_blank" rel="noopener">
+          <span class="ico">in</span>LinkedIn
+        </a>
+        <div class="c-dot"></div>
+        <span class="contact-link">
+          <span class="ico">📍</span>서울특별시 마포구
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────── -->
+  <footer>
+    <span>© 2026 김수민 · Kim Soomin</span>
+    <span>Marketing Specialist · Seoul, Korea</span>
+  </footer>
+
+  <!-- ── SCRIPT ────────────────────────────── -->
+  <script>
+    /* ─── counter animation ─── */
+    function counter(el, end, format) {
+      const dur = 1800;
+      const start = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = format(Math.round(end * ease));
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    }
+
+    const statsEl = document.querySelector('.stats-grid');
+    let counted = false;
+    const statsObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !counted) {
+        counted = true;
+        counter(document.getElementById('s-cpl'),     38,   v => v + '%↓');
+        counter(document.getElementById('s-traffic'), 23,   v => (v / 10).toFixed(1) + '배');
+        counter(document.getElementById('s-sub'),     8000, v => v.toLocaleString('ko-KR'));
+        counter(document.getElementById('s-yr'),      5,    v => v + '년+');
+      }
+    }, { threshold: 0.4 });
+    statsObs.observe(statsEl);
+
+    /* ─── fade-in on scroll ─── */
+    const fadeObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          fadeObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.career-item').forEach((el, i) => {
+      el.style.transitionDelay = i * 0.1 + 's';
+      fadeObs.observe(el);
+    });
+
+    const projObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          projObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.proj-card').forEach(el => projObs.observe(el));
+
+    /* ─── nav active state ─── */
+    const sections = document.querySelectorAll('section[id]');
+    const links = document.querySelectorAll('.nav-links a[href^="#"]');
+    const secObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          links.forEach(a => {
+            a.style.color = a.getAttribute('href') === '#' + e.target.id
+              ? 'var(--accent)' : '';
+          });
+        }
+      });
+    }, { threshold: 0.45 });
+    sections.forEach(s => secObs.observe(s));
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+# --- Secrets / credentials (절대 커밋 금지) ---
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+id_rsa
+id_rsa.*
+credentials
+credentials.*
+
+# --- Logs ---
+logs/
+*.log
+weather_cron.log
+
+# --- macOS / OS metadata ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# --- Editors / IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Claude Code 로컬 설정 ---
+.claude/settings.local.json
+
+# --- Backups / temp ---
+*.bak
+*.tmp
+*.orig
